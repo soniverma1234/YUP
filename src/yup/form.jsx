@@ -1,5 +1,7 @@
 import { useState } from "react";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
+// import Swal from "sweetalert2";
 
 const Form = () => {
   const [form, setForm] = useState({
@@ -29,9 +31,29 @@ const Form = () => {
       await validationSchema.validate(form);
 
       console.log(form);
-      alert("Form is valid!");
+      toast.success("Form submitted successfully!");
+
+    //    Swal.fire({
+    //     title: "Success!",
+    //     text: "Your form has been submitted.",
+    //     icon: "success",
+    //     confirmButtonText: "OK",
+    //   });
+setForm({
+  name: "",
+  email: "",
+  password: "",
+});
     } catch (error) {
-      alert(error.message);
+         toast.error(error.message);
+
+    //       Swal.fire({
+    //     title: "Error!",
+    //     text: error.message,
+    //     icon: "error",
+    //     confirmButtonText: "OK",
+    //   });
+
     }
   };
 
@@ -48,6 +70,7 @@ const Form = () => {
         <input
           type="text"
           placeholder="Enter Name"
+          required
           value={form.name}
           onChange={(e) =>
             setForm({
@@ -60,6 +83,7 @@ const Form = () => {
 
         <input
           type="email"
+          required
           placeholder="Enter Email"
           value={form.email}
           onChange={(e) =>
@@ -73,6 +97,7 @@ const Form = () => {
 
         <input
           type="password"
+          required
           placeholder="Enter Password"
           value={form.password}
           onChange={(e) =>
